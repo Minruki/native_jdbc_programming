@@ -9,16 +9,14 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import native_jdbc_programming.dao.impl.EmployeeDaoImpl;
-import native_jdbc_programming.dao.impl.TitleDaoImpl;
 import native_jdbc_programming.dto.Department;
 import native_jdbc_programming.dto.Employee;
 import native_jdbc_programming.dto.Title;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-
 public class EmployeeDaoTest {
-	private static EmployeeDao dao = EmployeeDaoImpl.getInstance();
-
+	private EmployeeDao dao = EmployeeDaoImpl.getInstance();
+	
 	@After
 	public void tearDown() throws Exception {
 		System.out.println();
@@ -27,48 +25,50 @@ public class EmployeeDaoTest {
 	@Test
 	public void test01SelectEmployeeByAll() {
 		System.out.printf("%s()%n", "testSelectEmployeeByAll");
-		List<Employee> employeeList = dao.selectEmployeeByAll();
-		Assert.assertNotNull(employeeList);
+		List<Employee> empList = dao.selectEmployeeByAll();
+		Assert.assertNotNull(empList);
 		
-		for(Employee t : employeeList) {
+//		titleList.stream().forEach(System.out::println);
+		for(Employee t : empList) {
 			System.out.println(t);
 		}
-		
 	}
 
 	@Test
 	public void test02SelectEmployeeByNo() {
-		Employee employee = new Employee(3427);
-		Employee searchEmployee = dao.selectEmployeeByNo(employee);
-		Assert.assertNotNull(searchEmployee);
-		System.out.println(dao.selectEmployeeByNo(employee));
+		System.out.printf("%s()%n", "testSelectEmployeeByNo");
+		Employee selEmp = new Employee(2106);
+		
+		Employee emp = dao.selectEmployeeByNo(selEmp);
+		Assert.assertNotNull(emp);
+		System.out.println(emp);
 	}
 
 	@Test
 	public void test03InsertEmployee() {
 		System.out.printf("%s()%n", "testInsertEmployee");
-		Employee newEmployee = new Employee(1004, "천사", new Title(3), new Employee(4377), 3000000, new Department(3));
-		int res = dao.insertEmployee(newEmployee);
+		Employee newEmp = new Employee(1004, "천사", new Title(5), new Employee(4377), 2000000, new Department(1));
+		int res = dao.insertEmployee(newEmp);
 		Assert.assertEquals(1, res);
-		System.out.println(dao.selectEmployeeByNo(newEmployee));
+		
+		System.out.println(dao.selectEmployeeByNo(newEmp));
 	}
 
 	@Test
 	public void test04UpdateEmployee() {
 		System.out.printf("%s()%n", "testUpdateEmployee");
-		Employee newEmployee = new Employee(1004, "천사2", new Title(3), new Employee(4377), 3000000, new Department(3));
-		//update employee set empname = 1004, title_no = '천사', salary =3, dept =1003 where empno = 3000000
-		
-		int res = dao.updateEmployee(newEmployee);
+		Employee newEmp = new Employee(1004, "천사2", new Title(4), new Employee(1003), 2000000, new Department(2));
+		int res = dao.updateEmployee(newEmp);
 		Assert.assertEquals(1, res);
 		
+		System.out.println(dao.selectEmployeeByNo(newEmp));
 	}
 
 	@Test
 	public void test05DeleteEmployee() {
-		System.out.printf("%s()%n", "testDeletEmployee");
-		Employee newEmployee = new Employee(1004);
-		int res = dao.deleteEmployee(newEmployee);
+		System.out.printf("%s()%n", "testDeleteEmployee");
+		Employee newEmp = new Employee(1004);
+		int res = dao.deleteEmployee(newEmp);
 		Assert.assertEquals(1, res);
 		dao.selectEmployeeByAll().stream().forEach(System.out::println);
 	}
