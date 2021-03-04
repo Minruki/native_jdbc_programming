@@ -32,10 +32,11 @@ select e.empno
      , d.deptNo
      , d.deptName
      , d.floor
-  from employee e join title t on e.title = t.tno
+  from employee e join title t on e.title_no = t.tno
        left join employee m on e.manager = m.empno 
        join department d on e.dept = d.deptNo ;
-  
+ 
+delete from vw_full_employee;      
 select * from vw_full_employee;
 
 select empno, empname, title_no, title_name, manager_no, manager_name, salary, deptNo, deptName, floor

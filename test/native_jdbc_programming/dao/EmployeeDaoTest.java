@@ -29,8 +29,8 @@ public class EmployeeDaoTest {
 		Assert.assertNotNull(empList);
 		
 //		titleList.stream().forEach(System.out::println);
-		for(Employee t : empList) {
-			System.out.println(t);
+		for(Employee e : empList) {
+			System.out.println(e);
 		}
 	}
 
@@ -70,7 +70,7 @@ public class EmployeeDaoTest {
 		Employee newEmp = new Employee(1004);
 		int res = dao.deleteEmployee(newEmp);
 		Assert.assertEquals(1, res);
-		dao.selectEmployeeByAll().stream().forEach(System.out::println);
+//		dao.selectEmployeeByAll().stream().forEach(System.out::println);
 	}
 
 }
